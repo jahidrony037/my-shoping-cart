@@ -12,7 +12,7 @@
 
 <body>
 
-   <section>
+   <section id="buyarea">
       <div class="container">
          <div class="cart">
             <div class="col-md-12 col-lg-10 mx-auto">
@@ -25,12 +25,12 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button class="btn btn-default"><i id="phnMinusBtn" class="fas fa-minus"></i></button>
+                           <input type="text" class="form-control text-center" id="addPhn" value="1">
+                           <button class="btn btn-default"><i id="phnPlusBtn" class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
-                        <img src="images/remove.png" alt="" class="remove-item">
+                        <h5>$ <span id="mobilePrice">1219</span></h5>
+                        <img src="images/remove.png" alt="" id="remove" class="remove-item">
                      </div>
                   </div>
                </div>
@@ -43,13 +43,13 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button class="btn btn-default"><i id="casingMinusBtn" class="fas fa-minus"></i></button>
+                           <input type="text" class="form-control text-center" id="addCasing" value="1">
+                           <button class="btn btn-default"><i id="casingPlusBtn" class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
-                        <img src="images/remove.png" alt="" class="remove-item">
+                        <h5>$ <span id="casePrice">59</span></h5>
+                        <img src="images/remove.png" alt="" id="removeDown" class="remove-item">
                      </div>
                   </div>
                </div>
@@ -64,19 +64,226 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="subtotal">1278</span></h5>
+                        <h5>$ <span id="tax">0.00</span></h5>
+                        <h5>$ <span id="total">1278</span></h5>
                      </div>
                   </div>
                </div>
                <div class="col-md-12 pt-4 pb-4">
-                  <button type="button" class="btn btn-success check-out">Check Out</button>
+                  <button type="button" id="checkout" class="btn btn-success check-out">Check Out</button>
                </div>
             </div>
          </div>
       </div>
    </section>
+
+   <div id="buyphn">
+      <h1>Thanks for purchasing iPhone11!</h1>
+      <h3>Now it's Yours. 🙂</h3>
+   </div>
+
+
+
+   <script>
+            //Phone Plus Btn Handler
+
+            const phnPlusBtn=  document.getElementById('phnPlusBtn');
+            phnPlusBtn.addEventListener('click',function(){
+
+               phnQuantity('addPhn',sum=1);
+               updatePhnPrice('mobilePrice',initalPrice=1219);
+               updatesubTotal('subtotal',initialSubPrice=1219);
+               updatetaxTotal('subtotal');
+
+               const subTotal = getInput('subtotal');
+               const taxTotal = getInput('tax');
+
+               incrementTotal('total',subTotal,taxTotal);
+               
+         })
+
+        //Phone Minus Btn handler
+         
+        var minusBtn = document.getElementById("phnMinusBtn");
+        minusBtn.addEventListener('click',function(){
+         phnQuantity("addPhn",sum=(-1*+1));
+         updatePhnPrice('mobilePrice',initalPrice= (-1)*1219);
+         updatesubTotal('subtotal',initialSubPrice= (-1)*1219 );
+         updatetaxTotal('subtotal');
+               const subTotal = getInput('subtotal');
+               const taxTotal = getInput('tax');
+         decrementTotal('total',-1*taxTotal,-1*subTotal);
+        
+        })
+
+        //Casing Plus Btn Handler
+        var plusBtn = document.getElementById("casingPlusBtn");
+        plusBtn.addEventListener('click',function(){
+          const chasingValue =  getInputFrm('addCasing');
+          phnQuantity("addCasing",sum=1);
+          updatePhnPrice('casePrice',initalPrice=59);
+          updatesubTotal('subtotal',initialSubPrice=59);
+          updatetaxTotal('subtotal');
+
+               const subTotal = getInput('subtotal');
+               const taxTotal = getInput('tax');
+
+               incrementTotal('total',subTotal,taxTotal);
+        })
+
+        //Casing Minus Btn Handler
+        var minusBtn = document.getElementById("casingMinusBtn");
+        minusBtn.addEventListener('click',function(){
+          const chasingValue =  getInputFrm('addCasing');
+          phnQuantity("addCasing",sum=(-1*+1));
+          updatePhnPrice('casePrice',initalPrice=(-1)*59);
+          updatesubTotal('subtotal',initialSubPrice=(-1)*59);
+          updatetaxTotal('subtotal');
+
+               const subTotal = getInput('subtotal');
+               const taxTotal = getInput('tax');
+
+               decrementTotal('total',-1*taxTotal,-1*subTotal);
+        })  
+
+        
+        function phnQuantity(id,sum){
+         var  addPhn = document.getElementById(id).value;
+               var addPhnNum = parseFloat(addPhn);
+               var increment = addPhnNum + sum;
+               document.getElementById(id).value=increment;
+               return increment;
+        }
+
+        function updatePhnPrice(id,initalPrice){
+
+                  var mobilePrice1 = document.getElementById(id).innerText;
+                  var mobilePrice =parseFloat(mobilePrice1);
+                  var newMobilePrice = mobilePrice + initalPrice;
+                  document.getElementById(id).innerText=newMobilePrice;
+
+        }
+        function updatesubTotal(id,initialSubPrice){
+               var subTotal1 = document.getElementById(id).innerText;
+               var subTotal = parseInt(subTotal1);
+               var newSubTotal = subTotal + initialSubPrice;
+               document.getElementById(id).innerText=newSubTotal;
+               return newSubTotal;
+        }
+
+        function updatetaxTotal(id){
+           var  getsubtotal = document.getElementById(id).innerText;
+           var  currentSubtotal=parseFloat(getsubtotal); 
+            if(currentSubtotal<2000){
+               var taxTotal = 0;
+               return document.getElementById('tax').innerText=taxTotal.toFixed(2);
+            }
+            else if(currentSubtotal>2000){
+               var taxTotal = (currentSubtotal*0.2)/100;
+               return document.getElementById('tax').innerText=taxTotal.toFixed(2);
+            }
+            else if(currentSubtotal >3000)
+            {
+               var taxTotal = (currentSubtotal*0.3)/100;
+               return document.getElementById('tax').innerText=taxTotal.toFixed(2);
+            }
+            else if(currentSubtotal >4000)
+            {
+               var taxTotal = (currentSubtotal*0.4)/100;
+               return document.getElementById('tax').innerText=taxTotal.toFixed(2);
+            }
+            else if(currentSubtotal >5000)
+            {
+               var taxTotal = (currentSubtotal*0.5)/100;
+               return document.getElementById('tax').innerText=taxTotal.toFixed(2);
+            }
+            else if(currentSubtotal >10000)
+            {
+               var taxTotal = (currentSubtotal*0.6)/100;
+               return document.getElementById('tax').innerText=taxTotal.toFixed(2);
+            }
+            else if(currentSubtotal >20000)
+            {
+               var taxTotal = (currentSubtotal*0.7)/100;
+               return document.getElementById('tax').innerText=taxTotal.toFixed(2);
+            }
+            else if(currentSubtotal >30000)
+            {
+               var taxTotal = (currentSubtotal*0.9)/100;
+               return document.getElementById('tax').innerText=taxTotal.toFixed(3);
+            }
+            else 
+            {
+               var taxTotal = (currentSubtotal*0.11)/100;
+               return document.getElementById('tax').innerText=taxTotal.toFixed(3);
+            }
+                
+        }
+        function getInput(id) {
+           let subTotal=document.getElementById(id).innerText;
+           let currentSubTotal = parseFloat(subTotal);
+           return currentSubTotal;
+           
+        }
+        function getInputFrm(id) {
+           let subTotal=document.getElementById(id).value;
+           let currentSubTotal = parseFloat(subTotal);
+           return currentSubTotal;
+           
+        }
+        function incrementTotal(id,subTotal,taxTotal) {
+           const currentTotal =(subTotal + taxTotal);
+           document.getElementById(id).innerText=currentTotal;
+        }
+        function decrementTotal(id,subTotal,taxTotal) {
+           const currentTotal =-1*(subTotal + taxTotal);
+           document.getElementById(id).innerText=currentTotal;
+        }
+
+         //Chekbox Handler
+
+       const CheckBtn =document.getElementById("checkout");
+       CheckBtn.addEventListener("click",function(){
+
+          document.getElementById("buyarea").style.display="none";
+          document.getElementById("buyphn").style.display="block";
+          document.getElementById("buyphn").style.backgroundColor='aqua';
+       })
+
+       //remove button mobile
+       var removeBtn = document.getElementById('remove');
+           removeBtn.addEventListener('click',function(){
+           const remove= document.getElementById('addPhn').value=0;
+           const priceRemove= document.getElementById('mobilePrice').innerText=0;
+           var getcasePrice1 = document.getElementById('casePrice').innerText;
+           var getcasePrice =parseFloat(getcasePrice1);
+          document.getElementById('subtotal').innerText=getcasePrice;
+          var subtotal2=document.getElementById('subtotal').innerText;
+          var subtotal3 =parseFloat(subtotal2);
+          var taxtotal2 =document.getElementById('tax').innerText;
+          var taxtotal3 =parseFloat(taxtotal2);
+
+          document.getElementById('total').innerText=subtotal3 + taxtotal3;
+           })
+
+      //remove button cashing
+      var removeBtn2 = document.getElementById('removeDown');
+           removeBtn2.addEventListener('click',function(){
+           const remove= document.getElementById('addCasing').value=0;
+           const priceRemove= document.getElementById('casePrice').innerText=0;
+           var getcasePrice1 = document.getElementById('mobilePrice').innerText;
+           var getcasePrice =parseFloat(getcasePrice1);
+          document.getElementById('subtotal').innerText=getcasePrice;
+          var subtotal2=document.getElementById('subtotal').innerText;
+          var subtotal3 =parseFloat(subtotal2);
+          var taxtotal2 =document.getElementById('tax').innerText;
+          var taxtotal3 =parseFloat(taxtotal2);
+
+          document.getElementById('total').innerText=subtotal3 + taxtotal3;
+           })
+
+   </script>
 </body>
 
 </html>
