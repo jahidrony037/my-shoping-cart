@@ -259,6 +259,9 @@
            var getcasePrice1 = document.getElementById('casePrice').innerText;
            var getcasePrice =parseFloat(getcasePrice1);
           document.getElementById('subtotal').innerText=getcasePrice;
+
+          updatetaxTotal('subtotal');
+
           var subtotal2=document.getElementById('subtotal').innerText;
           var subtotal3 =parseFloat(subtotal2);
           var taxtotal2 =document.getElementById('tax').innerText;
@@ -275,6 +278,9 @@
            var getcasePrice1 = document.getElementById('mobilePrice').innerText;
            var getcasePrice =parseFloat(getcasePrice1);
           document.getElementById('subtotal').innerText=getcasePrice;
+
+          updatetaxTotal('subtotal');
+          
           var subtotal2=document.getElementById('subtotal').innerText;
           var subtotal3 =parseFloat(subtotal2);
           var taxtotal2 =document.getElementById('tax').innerText;
